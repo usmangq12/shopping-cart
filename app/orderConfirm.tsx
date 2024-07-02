@@ -19,7 +19,7 @@ export default function orderConfirm() {
         gap: 28,
       }}
     >
-      <FontAwesome5 name="check-circle" size={63} color="black" />
+      <FontAwesome5 name="check-circle" size={63} color="#353C4C" />
       <Text style={{ color: "black", fontSize: 24, fontWeight: "600" }}>
         Order Confirmed!
       </Text>

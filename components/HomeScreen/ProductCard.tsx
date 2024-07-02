@@ -23,7 +23,7 @@ export const ProductCard = () => {
   };
 
   return (
-    <ScrollView style={{ marginTop: 12 }}>
+    <ScrollView style={{ marginTop: 12 }} showsVerticalScrollIndicator = {false}>
       <View style={styles.row}>
         {Products.map((item, index) => (
           <TouchableOpacity

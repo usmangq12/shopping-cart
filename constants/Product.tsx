@@ -8,6 +8,7 @@ export type Product = {
   price: string;
   reviews: number;
   backgroundColor: string;
+  wishList:boolean
 };
 
 export const Products: Product[] = [
@@ -21,6 +22,7 @@ export const Products: Product[] = [
     shopname: "TechZone",
     price: "$999",
     backgroundColor: "tomato",
+    wishList:false
   },
   {
     id: 2,
@@ -32,6 +34,7 @@ export const Products: Product[] = [
     shopname: "GadgetWorld",
     price: "$899",
     backgroundColor: "thistle",
+    wishList:false
   },
   {
     id: 3,
@@ -43,6 +46,7 @@ export const Products: Product[] = [
     shopname: "DigitalDreams",
     price: "$1099",
     backgroundColor: "skyblue",
+    wishList:false
   },
   {
     id: 4,
@@ -54,6 +58,7 @@ export const Products: Product[] = [
     shopname: "GameTech",
     price: "$1299",
     backgroundColor: "skyblue",
+    wishList:false
   },
   {
     id: 5,
@@ -65,5 +70,6 @@ export const Products: Product[] = [
     shopname: "BudgetTech",
     price: "$799",
     backgroundColor: "teal",
+    wishList:false
   },
 ];

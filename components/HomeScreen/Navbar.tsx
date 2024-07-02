@@ -27,8 +27,8 @@ export const Navbar = () => {
         onPress={navigateToAccountDetail}
       >
         <TabBarIcon
-          name="wallet-outline"  
-          size={26}      
+          name="wallet-outline"
+          size={26}
           color="black"
           style={styles.icon}
         />
@@ -66,9 +66,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   icon: {
-    width:26,
-    height:26,
-    marginBottom:2,
+    width: 26,
+    height: 26,
+    marginBottom: 2,
     textAlign: "center",
     textAlignVertical: "center",
   },

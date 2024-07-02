@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/HomeScreen/Navbar";
-import { ProductCard } from "@/components/ProductCard";
-import { SwiperCard } from "@/components/swiperCards/SwiperCard";
+import { ProductCard } from "@/components/HomeScreen/ProductCard";
+import { SwiperCard } from "@/components/HomeScreen/swiperCards/SwiperCard";
 import React from "react";
 import {
   Pressable,

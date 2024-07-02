@@ -76,12 +76,12 @@ export const ProductDetailCard = () => {
                 source={require("@/assets/images/shopLogo.jpg")}
                 style={styles.shopLogo}
               />
-              <Text style={styles.shopName}>{productDetail.shopname}</Text>
+              <Text style={styles.shopName} testID="shopName">{productDetail.shopname}</Text>
             </View>
             <View style={styles.productTitleContainer}>
-              <Text style={styles.productTitle}>{productDetail.title}</Text>
+              <Text style={styles.productTitle} testID="title">{productDetail.title}</Text>
               <View style={styles.priceAndRating}>
-                <Text style={styles.productPrice}>{productDetail.price}</Text>
+                <Text style={styles.productPrice} testID="price">{productDetail.price}</Text>
                 <Rating
                   type="star"
                   showRating={false}
@@ -94,7 +94,7 @@ export const ProductDetailCard = () => {
             </View>
             <View style={styles.descriptionContainer}>
               <Text style={styles.descriptionTitle}>Description</Text>
-              <Text style={styles.descriptionText}>
+              <Text style={styles.descriptionText} testID="description">
                 {productDetail.description}
               </Text>
             </View>
