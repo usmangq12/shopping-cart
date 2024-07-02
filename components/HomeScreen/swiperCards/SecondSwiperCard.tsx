@@ -1,5 +1,3 @@
-import { Products } from "@/constants/Product";
-import { useRouter } from "expo-router";
 import React, { Component } from "react";
 import {
   Text,
@@ -10,18 +8,20 @@ import {
   Dimensions,
 } from "react-native";
 
+import { useRouter } from "expo-router";
+
+import { Products } from "@/constants/Product";
+
 export const SecondSwiperCard = () => {
   const router = useRouter();
+
   const NavigateToProduct = () => {
     router.navigate("productDetail");
   };
 
   {
     return (
-      <TouchableOpacity
-        style={styles.child}
-        onPress={NavigateToProduct}
-      >
+      <TouchableOpacity style={styles.child} onPress={NavigateToProduct}>
         <View style={[styles.imageContainer]}>
           <Image
             source={Products[3].img}
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     overflow: "hidden",
     borderRadius: 24,
-    backgroundColor: "#F1DAC8"
+    backgroundColor: "#F1DAC8",
   },
   imageContainer: {
     flexDirection: "row",

@@ -1,4 +1,4 @@
-import { Products } from "@/constants/Product";
+
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -6,15 +6,20 @@ import {
   Image,
   TouchableOpacity,
   Text,
-  ScrollView,
 } from "react-native";
+
 import { AntDesign } from "@expo/vector-icons";
 import { Rating } from "react-native-ratings";
 import { useRouter } from "expo-router";
 
+import { Products } from "@/constants/Product";
+
 export const ProductCard = () => {
+
   const [addWishList, setAddWishList] = useState(false);
+
   const router = useRouter();
+
   const handleAddToWishList = () => {
     setAddWishList(!addWishList);
   };
@@ -23,7 +28,7 @@ export const ProductCard = () => {
   };
 
   return (
-    <ScrollView style={{ marginTop: 12 }} showsVerticalScrollIndicator = {false}>
+    <View style={styles.container} >
       <View style={styles.row}>
         {Products.map((item, index) => (
           <TouchableOpacity
@@ -72,11 +77,12 @@ export const ProductCard = () => {
           </TouchableOpacity>
         ))}
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container : { marginTop: 12 },
   row: {
     flexDirection: "row",
     flexWrap: "wrap",

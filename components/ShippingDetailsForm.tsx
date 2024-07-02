@@ -7,11 +7,13 @@ import {
   StyleSheet,
   TextInput,
 } from "react-native";
-import { TabBarIcon } from "./navigation/TabBarIcon";
+
 import { useRouter } from "expo-router";
 import { Formik, FormikHelpers, FormikErrors } from "formik";
 import { z } from "zod";
+
 import { CommonButton } from "@/common/Button";
+import { TabBarIcon } from "./navigation/TabBarIcon";
 
 const phoneRegExp =
   /^((\+[1-9]{1,4}[ \\-]*)|(\([0-9]{2,3}\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -41,6 +43,7 @@ export const ShippingDetailsForm = () => {
   ) => {
     console.log("Form Submitted ", values);
     resetForm();
+    console.log("Hi");
     router.navigate("orderConfirm");
   };
 

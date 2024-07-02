@@ -1,18 +1,19 @@
-import { Products } from "@/constants/Product";
-import { useRouter } from "expo-router";
-import React, { Component } from "react";
+
+import React from "react";
 import {
   Text,
   StyleSheet,
   View,
   TouchableOpacity,
-  Image,
   Dimensions,
   ImageBackground,
 } from "react-native";
 
+import { useRouter } from "expo-router";
+
 export const ThirdSwiperCard = () => {
   const router = useRouter();
+
   const NavigateToProduct = () => {
     router.navigate("productDetail");
   };

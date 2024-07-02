@@ -1,8 +1,11 @@
 import React from "react";
 import { TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
+
 import { EvilIcons } from "@expo/vector-icons";
-import { TabBarIcon } from "../navigation/TabBarIcon";
 import { useRouter } from "expo-router";
+
+import { TabBarIcon } from "../navigation/TabBarIcon";
+
 
 export const Navbar = () => {
   const router = useRouter();

@@ -1,4 +1,3 @@
-import { Products } from "@/constants/Product";
 import React from "react";
 import {
   Text,
@@ -8,10 +7,14 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
+
 import { useRouter } from "expo-router";
+
+import { Products } from "@/constants/Product";
 
 export const FirstSwiperCard = () => {
   const router = useRouter();
+
   const NavigateToProduct = () => {
     router.navigate("productDetail");
   };

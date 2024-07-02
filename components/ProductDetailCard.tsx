@@ -7,14 +7,15 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
+
 import { useLocalSearchParams } from "expo-router";
-import { Product, Products } from "@/constants/Product";
 import { Rating } from "react-native-ratings";
 import { AntDesign } from "@expo/vector-icons";
+
 import { TabBarIcon } from "./navigation/TabBarIcon";
 import { useRouter } from "expo-router";
 import { CommonButton } from "@/common/Button";
-
+import { Product, Products } from "@/constants/Product";
 export const ProductDetailCard = () => {
   const [productDetail, setProductDetail] = useState<Product | null>(null);
   const [addWishList, setAddWishList] = useState(false);
@@ -47,7 +48,11 @@ export const ProductDetailCard = () => {
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.imageContainer}>
-            <Image source={productDetail.img} style={styles.productImage} />
+            <Image
+              source={productDetail.img}
+              style={styles.productImage}
+              testID="product-image"
+            />
             <View style={styles.wishlistIconContainer}>
               <TouchableOpacity onPress={handleAddToWishList}>
                 <AntDesign
@@ -76,12 +81,18 @@ export const ProductDetailCard = () => {
                 source={require("@/assets/images/shopLogo.jpg")}
                 style={styles.shopLogo}
               />
-              <Text style={styles.shopName} testID="shopName">{productDetail.shopname}</Text>
+              <Text style={styles.shopName} testID="shop-name">
+                {productDetail.shopname}
+              </Text>
             </View>
             <View style={styles.productTitleContainer}>
-              <Text style={styles.productTitle} testID="title">{productDetail.title}</Text>
+              <Text style={styles.productTitle} testID="title">
+                {productDetail.title}
+              </Text>
               <View style={styles.priceAndRating}>
-                <Text style={styles.productPrice} testID="price">{productDetail.price}</Text>
+                <Text style={styles.productPrice} testID="price">
+                  {productDetail.price}
+                </Text>
                 <Rating
                   type="star"
                   showRating={false}
