@@ -1,12 +1,8 @@
-
 import { AccountDetail } from "@/components/AccountDetailScreen/AccountDetail";
-import React, { Component } from "react";
-import { Text, StyleSheet, View } from "react-native";
+import React from "react";
 
 const AccountDetailScreen = () => {
-  {
-     return <AccountDetail/>
-  }
+  return <AccountDetail />;
 };
 
 export default AccountDetailScreen;

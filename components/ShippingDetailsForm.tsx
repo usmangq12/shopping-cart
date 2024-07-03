@@ -6,7 +6,6 @@ import {
   SafeAreaView,
   StyleSheet,
   TextInput,
-  GestureResponderEvent,
 } from "react-native";
 
 import { useRouter } from "expo-router";
@@ -15,6 +14,7 @@ import { z } from "zod";
 
 import { CommonButton } from "@/common/Button";
 import { TabBarIcon } from "./navigation/TabBarIcon";
+import { Screens } from "@/constants/routes";
 
 const phoneRegExp =
   /^((\+[1-9]{1,4}[ \\-]*)|(\([0-9]{2,3}\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -44,8 +44,7 @@ export const ShippingDetailsForm = () => {
   ) => {
     console.log("Form Submitted ", values);
     resetForm();
-    console.log("Hi");
-    router.navigate("orderConfirm");
+    router.navigate(Screens.OrderConfirm);
   };
 
   return (
@@ -152,8 +151,7 @@ export const ShippingDetailsForm = () => {
             <View style={styles.buttonContainer}>
               <CommonButton
                 title="Confirm Order"
-                onPress={()=>handleSubmit()}
-               
+                onPress={() => handleSubmit()}
               />
             </View>
           </View>
@@ -233,4 +231,3 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
 });
-

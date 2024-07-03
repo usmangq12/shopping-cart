@@ -1,9 +1,8 @@
 import { Navbar } from "@/components/HomeScreen/Navbar";
-import { ProductCard } from "@/components/HomeScreen/ProductCard";
+import { ProductGrid } from "@/components/HomeScreen/ProductGrid";
 import { SwiperCard } from "@/components/HomeScreen/swiperCards/SwiperCard";
 import React from "react";
 import {
-  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -15,7 +14,6 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <Navbar />
-
       <View style={styles.container}>
         <Text style={styles.popularItemsText}>Popular Items</Text>
         <TouchableOpacity>
@@ -26,7 +24,8 @@ const HomeScreen = () => {
       <SwiperCard />
 
       <View style={styles.productCardView}>
-        <ProductCard />
+        {/** Should be called `ProductGrid` */}
+        <ProductGrid />
       </View>
     </SafeAreaView>
   );

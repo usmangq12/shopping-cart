@@ -1,88 +1,78 @@
-
-import React, { useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Image,
-  TouchableOpacity,
-  Text,
-} from "react-native";
-
-import { AntDesign } from "@expo/vector-icons";
-import { Rating } from "react-native-ratings";
 import { useRouter } from "expo-router";
+import React, { useState } from "react";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { Rating } from "react-native-ratings";
+import { AntDesign } from "@expo/vector-icons";
+import { Product } from "@/constants/Product";
 
-import { Products } from "@/constants/Product";
-
-export const ProductCard = () => {
-
+type ProductCardTypes = {
+  products: Product[];
+};
+export const ProductCard = ({ products }: ProductCardTypes) => {
   const [addWishList, setAddWishList] = useState(false);
-
   const router = useRouter();
 
   const handleAddToWishList = () => {
     setAddWishList(!addWishList);
   };
+
   const handleNavigation = (id: number) => {
-    router.navigate({ pathname: "productDetail", params: { id: id } });
+    router.push(`/productDetail/${id}`);
   };
 
   return (
-    <View style={styles.container} >
-      <View style={styles.row}>
-        {Products.map((item, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.cardContainer}
-            onPress={() => handleNavigation(item.id)}
-          >
-            <View style={styles.imageContainer}>
-              <Image
-                source={item.img}
-                resizeMode="cover"
-                style={styles.productImage}
+    <View style={styles.row}>
+      {products.map((item, index) => (
+        <TouchableOpacity
+          key={index}
+          style={styles.cardContainer}
+          onPress={() => handleNavigation(item.id)}
+        >
+          <View style={styles.imageContainer}>
+            <Image
+              source={item.img}
+              resizeMode="cover"
+              style={styles.productImage}
+            />
+            <View style={styles.wishlistIconContainer}>
+              <TouchableOpacity onPress={handleAddToWishList}>
+                <AntDesign
+                  name={addWishList ? "heart" : "hearto"}
+                  size={14}
+                  color="black"
+                  style={styles.wishlistIcon}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.detailsContainer}>
+            <View style={styles.ratingContainer}>
+              <Rating
+                type="star"
+                showRating={false}
+                ratingCount={5}
+                startingValue={item.reviews}
+                imageSize={12}
+                style={styles.rating}
               />
-              <View style={styles.wishlistIconContainer}>
-                <TouchableOpacity onPress={handleAddToWishList}>
-                  <AntDesign
-                    name={addWishList ? "heart" : "hearto"}
-                    size={14}
-                    color="black"
-                    style={styles.wishlistIcon}
-                  />
-                </TouchableOpacity>
-              </View>
             </View>
-            <View style={styles.detailsContainer}>
-              <View style={styles.ratingContainer}>
-                <Rating
-                  type="star"
-                  showRating={false}
-                  ratingCount={5}
-                  startingValue={item.reviews}
-                  imageSize={12}
-                  style={styles.rating}
-                />
-              </View>
-              <View style={styles.shopInfoContainer}>
-                <Image
-                  source={require("@/assets/images/shopLogo.jpg")}
-                  style={styles.shopLogo}
-                />
-                <Text style={styles.shopName}>{item.shopname}</Text>
-              </View>
-              <Text style={styles.productTitle}>{item.title}</Text>
-              <Text style={styles.productPrice}>{item.price}</Text>
+            <View style={styles.shopInfoContainer}>
+              <Image
+                source={require("@/assets/images/shopLogo.jpg")}
+                style={styles.shopLogo}
+              />
+              <Text style={styles.shopName}>{item.shopname}</Text>
             </View>
-          </TouchableOpacity>
-        ))}
-      </View>
+            <Text style={styles.productTitle}>{item.title}</Text>
+            <Text style={styles.productPrice}>{item.price}</Text>
+          </View>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container : { marginTop: 12 },
   row: {
     flexDirection: "row",
     flexWrap: "wrap",

@@ -1,11 +1,6 @@
-
-import { ShippingDetailsForm } from '@/components/ShippingDetailsForm'
-import React from 'react'
-import { View, Text } from 'react-native'
+import { ShippingDetailsForm } from "@/components/ShippingDetailsForm";
+import React from "react";
 
 export default function order() {
-    return (
-       
-           <ShippingDetailsForm/>
-    )
+  return <ShippingDetailsForm />;
 }
