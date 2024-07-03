@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   StyleSheet,
   TextInput,
+  GestureResponderEvent,
 } from "react-native";
 
 import { useRouter } from "expo-router";
@@ -151,7 +152,7 @@ export const ShippingDetailsForm = () => {
             <View style={styles.buttonContainer}>
               <CommonButton
                 title="Confirm Order"
-                onPress={handleSubmit}
+                onPress={()=>handleSubmit()}
                
               />
             </View>

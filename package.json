@@ -42,7 +42,7 @@
     "react-native-swiper": "^1.6.0",
     "react-native-swiper-flatlist": "^3.2.4",
     "react-native-web": "~0.19.10",
-    "ts-jest": "^29.1.5",
+    
     "yup": "^1.4.0",
     "zod": "^3.23.8"
   },
