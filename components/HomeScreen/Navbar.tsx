@@ -5,13 +5,22 @@ import { EvilIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
 import { TabBarIcon } from "../navigation/TabBarIcon";
+import { Screens } from "@/constants/routes";
+import { Button } from "@/common/Button";
 
-
-export const Navbar = () => {
+type NavbarProps = {
+  showAccount: boolean;
+};
+export const Navbar = ({ showAccount }: NavbarProps) => {
   const router = useRouter();
 
   const navigateToAccountDetail = () => {
-    router.navigate("account");
+      if(showAccount) {
+        router.navigate(Screens.AddtoWishList);
+      }
+      else {
+        router.navigate(Screens.AddNewProduct);
+      }
   };
 
   return (
@@ -25,17 +34,24 @@ export const Navbar = () => {
         />
         <EvilIcons name="search" size={26} color="black" style={styles.icon} />
       </View>
-      <TouchableOpacity
-        style={styles.walletButton}
-        onPress={navigateToAccountDetail}
-      >
-        <TabBarIcon
-          name="wallet-outline"
-          size={26}
-          color="black"
-          style={styles.icon}
+      {showAccount ? (
+        <TouchableOpacity
+          style={styles.walletButton}
+          onPress={navigateToAccountDetail}
+        >
+          <TabBarIcon
+            name="wallet-outline"
+            size={26}
+            color="black"
+            style={styles.icon}
+          />
+        </TouchableOpacity>
+      ) : (
+        <Button
+          title="Add a New Product"
+          onPress={navigateToAccountDetail}
         />
-      </TouchableOpacity>
+      )}
     </View>
   );
 };

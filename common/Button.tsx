@@ -7,10 +7,10 @@ import {
   TouchableOpacityProps,
 } from "react-native";
 
-type CommonButtonProps = {
+type ButtonProps = {
   title: string;
 } & TouchableOpacityProps;
-export const CommonButton = ({ title, ...classes }: CommonButtonProps) => {
+export const Button = ({ title, ...classes }: ButtonProps) => {
   const router = useRouter();
 
   return (

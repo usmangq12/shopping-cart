@@ -1,19 +1,27 @@
 import { useRouter } from "expo-router";
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { Rating } from "react-native-ratings";
 import { AntDesign } from "@expo/vector-icons";
 import { Product } from "@/constants/Product";
+import useProductsStore from "@/store/ProductsStore";
 
 type ProductCardTypes = {
   products: Product[];
 };
 export const ProductCard = ({ products }: ProductCardTypes) => {
-  const [addWishList, setAddWishList] = useState(false);
+  const addToWishlistItems = useProductsStore((state) => state.addToWishList);
+  const removeFromWishlistItems = useProductsStore(
+    (state) => state.removeFromWishList
+  );
   const router = useRouter();
 
-  const handleAddToWishList = () => {
-    setAddWishList(!addWishList);
+  const handleAddToWishList = (item: Product) => {
+    if (item.wishList) {
+      removeFromWishlistItems(item.id);
+    } else {
+      addToWishlistItems(item.id);
+    }
   };
 
   const handleNavigation = (id: number) => {
@@ -35,9 +43,9 @@ export const ProductCard = ({ products }: ProductCardTypes) => {
               style={styles.productImage}
             />
             <View style={styles.wishlistIconContainer}>
-              <TouchableOpacity onPress={handleAddToWishList}>
+              <TouchableOpacity onPress={() => handleAddToWishList(item)}>
                 <AntDesign
-                  name={addWishList ? "heart" : "hearto"}
+                  name={item.wishList ? "heart" : "hearto"}
                   size={14}
                   color="black"
                   style={styles.wishlistIcon}

@@ -24,7 +24,7 @@ export const Products: Product[] = [
     shopname: "TechZone",
     price: "$999",
     backgroundColor: "tomato",
-    wishList:false,
+    wishList:true,
     quantity : 0,
     addToCart : false 
   },

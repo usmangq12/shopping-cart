@@ -1,11 +1,9 @@
-import { AddToCart } from "@/components/AddToCartScreen/AddToCart";
 import React from "react";
-import { View, Text } from "react-native";
+
+import { AddToCartProducts } from "@/components/AddToCartScreen/AddToCartProducts";
 
 const AddToCartScreen = () => {
-  return (
-    <AddToCart/>
-  );
+  return <AddToCartProducts />;
 };
 
 export default AddToCartScreen;

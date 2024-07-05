@@ -12,7 +12,7 @@ import { useRouter } from "expo-router";
 import { Formik, FormikHelpers, FormikErrors } from "formik";
 import { z } from "zod";
 
-import { CommonButton } from "@/common/Button";
+import { Button } from "@/common/Button";
 import { TabBarIcon } from "./navigation/TabBarIcon";
 import { Screens } from "@/constants/routes";
 
@@ -42,7 +42,6 @@ export const ShippingDetailsForm = () => {
     values: ValidationSchema,
     { resetForm }: FormikHelpers<ValidationSchema>
   ) => {
-    console.log("Form Submitted ", values);
     resetForm();
     router.navigate(Screens.OrderConfirm);
   };
@@ -149,10 +148,7 @@ export const ShippingDetailsForm = () => {
             </View>
 
             <View style={styles.buttonContainer}>
-              <CommonButton
-                title="Confirm Order"
-                onPress={() => handleSubmit()}
-              />
+              <Button title="Confirm Order" onPress={() => handleSubmit()} />
             </View>
           </View>
         )}

@@ -12,20 +12,17 @@ import { Rating } from "react-native-ratings";
 import { AntDesign } from "@expo/vector-icons";
 import { TabBarIcon } from "./navigation/TabBarIcon";
 import { useRouter } from "expo-router";
-import { CommonButton } from "@/common/Button";
+import { Button } from "@/common/Button";
 import { Product, Products } from "@/constants/Product";
 import { Screens } from "@/constants/routes";
+import useProductsStore from "@/store/ProductsStore";
 
 export const ProductDetailCard = () => {
-  // we need to place a loading state too
-
-  // better to just call product
   const [productDetail, setProductDetail] = useState<Product | null>(null);
   const [addWishList, setAddWishList] = useState(false);
-  // Add error handling, add a useEffect to navigate user back to home page if id not found
 
   const { id } = useLocalSearchParams<{ id: string }>();
-
+  const addBook = useProductsStore((state) => state.addToCartWithQuantity);
   const router = useRouter();
 
   useEffect(() => {
@@ -41,7 +38,8 @@ export const ProductDetailCard = () => {
   const goBackNavigation = () => {
     router.back();
   };
-  const orderDetailNavigation = () => {
+  const orderDetailNavigation = (id: number) => {
+    addBook(id);
     router.navigate(Screens.AddToCart);
   };
 
@@ -116,7 +114,10 @@ export const ProductDetailCard = () => {
           </View>
         </View>
       </ScrollView>
-      <CommonButton title="Add to Cart" onPress={orderDetailNavigation} />
+      <Button
+        title="Add to Cart"
+        onPress={() => orderDetailNavigation(productDetail.id)}
+      />
     </View>
   );
 };

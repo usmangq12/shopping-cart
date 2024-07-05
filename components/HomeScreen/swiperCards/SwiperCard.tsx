@@ -10,6 +10,7 @@ import { ThirdSwiperCard } from "./ThirdSwiperCard";
 export const SwiperCard = () => (
   <View style={styles.container}>
     <SwiperFlatList autoplay autoplayDelay={2} autoplayLoop index={2}>
+      {/**TODO: Wrong naming convention. Should use business logic */}
       <FirstSwiperCard />
       <SecondSwiperCard />
       <ThirdSwiperCard />

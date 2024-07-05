@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { CommonButton } from "@/common/Button";
+import { Button } from "@/common/Button";
 export default function orderConfirm() {
   const router = useRouter();
 
@@ -19,7 +19,7 @@ export default function orderConfirm() {
         Get delivery by <Text style={styles.dateText}>Sat, 06 July</Text> -{" "}
         <Text style={styles.dateText}>Mon, 08 July</Text>
       </Text>
-      <CommonButton title="Continue Shopping " onPress={goToHomeScreen} />
+      <Button title="Continue Shopping " onPress={goToHomeScreen} />
     </View>
   );
 }
