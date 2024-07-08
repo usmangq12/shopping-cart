@@ -1,23 +1,39 @@
-import React from "react";
-import { Text, View, StyleSheet, ScrollView } from "react-native";
-import { useForm, Controller } from "react-hook-form";
+import React, { useEffect } from "react";
+import { View, StyleSheet, ScrollView } from "react-native";
+import { useForm } from "react-hook-form";
 import Constants from "expo-constants";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/common/Button";
-import { Input } from "./Input";
-import CheckBox from "react-native-check-box";
-import { Switch } from "react-native-switch";
+import { supabase } from "@/lib/supabase";
+import { TextInputComponent } from "./TextInputComponent";
+import { CheckboxComponent } from "./CheckboxComponent";
+import { SwitchComponent } from "./SwitchComponent";
+import { DropdownComponent } from "./DropdownComponent";
 
-const data = [
-  { label: "Item 1", value: "1" },
-  { label: "Item 2", value: "2" },
-  { label: "Item 3", value: "3" },
-  { label: "Item 4", value: "4" },
-  { label: "Item 5", value: "5" },
-  { label: "Item 6", value: "6" },
-  { label: "Item 7", value: "7" },
-  { label: "Item 8", value: "8" },
+export type ProductType = {
+  name: string;
+  price: string | number;
+  discount: string | number;
+  discountedPrice: string | number;
+  description: string;
+  type: Array<{ label: string; value: string }>;
+  merk: Array<{ label: string; value: string }>;
+  sizes: Array<{ label: string; value: string }>;
+  inStock: boolean;
+};
+
+const productType = [
+  { label: "Electronics", value: "electronics" },
+  { label: "Clothes", value: "clothes" },
+  { label: "Shoes", value: "shoes" },
+  { label: "Cosmetics", value: "cosmetics" },
+  { label: "Grocery", value: "grocery" },
+];
+const productMerks = [
+  { label: "Brand A", value: "brand_a" },
+  { label: "Brand B", value: "brand_b" },
+  { label: "Brand C", value: "brand_c" },
 ];
 
 const checkBoxOptions = [
@@ -28,8 +44,20 @@ const checkBoxOptions = [
 ];
 
 export const AddNewProductPage = () => {
+  useEffect(() => {
+    const fetchProducs = async () => {
+      const { data, error } = await supabase.from("products").select();
+      if (error) {
+        console.error("Error fetching products", error);
+      } else {
+        console.log("Supabase Data ", data);
+      }
+    };
+    fetchProducs();
+  }, []);
+
   const schema = z.object({
-    productName: z
+    name: z
       .string()
       .min(
         2,
@@ -39,17 +67,26 @@ export const AddNewProductPage = () => {
         30,
         "Product Name should be greater than 2 and less than 30 characters"
       ),
-    price: z.string().min(1, "Price should not be zero"),
-    discount: z.string().nullable(),
-    discountedPrice: z.string().refine((val) => val.length <= 255, {
-      message: "String can't be more than 255 characters",
-    }),
+    price: z
+      .string()
+      .min(1, "Price should not be zero")
+      .transform((arg) => Number(arg)),
+    discount: z
+      .string()
+      .nullable()
+      .transform((arg) => Number(arg)),
+    discountedPrice: z
+      .string()
+      .refine((val) => val.length <= 255, {
+        message: "String can't be more than 255 characters",
+      })
+      .transform((arg) => Number(arg)),
     description: z
       .string()
       .min(3, "Description should be greater than 3 characters"),
-    productType: z.string().min(1, "Please select a Product Type"),
-    productMerk: z.string().min(1, "Please select a Product Merk"),
-    checkboxes: z.array(z.string()).min(1, "Please select at least one option"),
+    type: z.string().min(1, "Please select a Product Type"),
+    merk: z.string().min(1, "Please select a Product Merk"),
+    sizes: z.array(z.string()),
     inStock: z.boolean(),
   });
 
@@ -57,24 +94,32 @@ export const AddNewProductPage = () => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm({
+  } = useForm<ProductType>({
     defaultValues: {
-      productName: "",
+      name: "",
       price: "",
       discount: "",
       discountedPrice: "",
       description: "",
-      productType: "",
-      productMerk: "",
-      checkboxes: [],
+      type: [],
+      merk: [],
+      sizes: [],
       inStock: false,
     },
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data: ProductType) => {
+    console.log("Form Data:", data);
+    const { status, error } = await supabase.from("products").insert(data);
+    if (error) {
+      console.error("Error adding product ", error);
+    } else {
+      console.log("Product added successfully", status);
+    }
   };
+
+  console.log("errros", errors.name);
 
   return (
     <ScrollView
@@ -82,94 +127,67 @@ export const AddNewProductPage = () => {
       contentContainerStyle={{ justifyContent: "center" }}
       showsVerticalScrollIndicator={false}
     >
-      <Input
-        name="productName"
+      <TextInputComponent
+        name="name"
         title={"Product Name"}
         control={control}
-        errors={errors.productName}
-        type="input"
+        errors={errors.name}
       />
-      <Input
-        name="productType"
+      <DropdownComponent
+        name="type"
         title={"Product Type"}
         control={control}
-        errors={errors.productType}
-        type="dropdown"
+        errors={errors.type}
+        data={productType}
       />
-      <Input
-        name="productMerk"
+      <DropdownComponent
+        name="merk"
         title={"Product Merk"}
         control={control}
-        errors={errors.productMerk}
-        type="dropdown"
+        errors={errors.merk}
+        data={productMerks}
       />
-      <Input
+
+      <TextInputComponent
         name="price"
         title={"Price"}
         control={control}
         errors={errors.price}
-        type="input"
       />
-      <Input
+
+      <TextInputComponent
         name="discount"
         title={"Discount"}
         control={control}
         errors={errors.discount}
-        type="input"
       />
-      <Input
+
+      <TextInputComponent
         name="discountedPrice"
         title={"Discounted Price"}
         control={control}
         errors={errors.discountedPrice}
-        type="input"
       />
-      <Input
+
+      <TextInputComponent
         name="description"
         title={"Product Description"}
         control={control}
         errors={errors.description}
-        type="input"
       />
-      <Text style={styles.label}>Product Size </Text>
-      <Controller
-        name="checkboxes"
+
+      <CheckboxComponent
+        name="sizes"
+        title={"Product Sizes"}
         control={control}
-        render={({ field: { onChange, value } }) => (
-          <View>
-            {checkBoxOptions.map((option) => (
-              <CheckBox
-                key={option.value}
-                style={styles.checkbox}
-                onClick={() => {
-                  const newValue = value.includes(option.value)
-                    ? value.filter((val) => val !== option.value)
-                    : [...value, option.value];
-                  onChange(newValue);
-                }}
-                isChecked={value.includes(option.value)}
-                rightText={option.label}
-              />
-            ))}
-          </View>
-        )}
+        data={checkBoxOptions}
       />
 
-      {errors.checkboxes && (
-        <Text style={{ color: "red", marginTop: 12 }}>
-          {errors.checkboxes.message}
-        </Text>
-      )}
-
-      <Text style={styles.label}>In Stock </Text>
-      <Controller
+      <SwitchComponent
         name="inStock"
+        title={"In Stock"}
         control={control}
-        render={({ field: { onChange, value } }) => (
-          <View style={{ paddingHorizontal: 12 }}>
-            <Switch value={value} onValueChange={onChange} switchLeftPx={12} />
-          </View>
-        )}
+        errors={errors.inStock}
       />
 
       <View style={{ marginVertical: 24 }}>
@@ -181,7 +199,7 @@ export const AddNewProductPage = () => {
 
 const styles = StyleSheet.create({
   label: {
-    fontWeight:"700",
+    fontWeight: "700",
     color: "black",
     marginVertical: 12,
     marginLeft: 0,
