@@ -116,6 +116,7 @@ export const ProductDetailCard = () => {
       </ScrollView>
       <Button
         title="Add to Cart"
+        style ={{marginHorizontal:12, width:"auto",  marginBottom: 10, }}
         onPress={() => orderDetailNavigation(productDetail.id)}
       />
     </View>

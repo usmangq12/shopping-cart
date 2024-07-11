@@ -148,7 +148,11 @@ export const ShippingDetailsForm = () => {
             </View>
 
             <View style={styles.buttonContainer}>
-              <Button title="Confirm Order" onPress={() => handleSubmit()} />
+              <Button
+                title="Confirm Order"
+                onPress={() => handleSubmit()}
+                style={{ marginBottom: 12 }}
+              />
             </View>
           </View>
         )}

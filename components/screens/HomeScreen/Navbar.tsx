@@ -4,7 +4,7 @@ import { TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
 import { EvilIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
-import { TabBarIcon } from "../navigation/TabBarIcon";
+import { TabBarIcon } from "../../navigation/TabBarIcon";
 import { Screens } from "@/constants/routes";
 import { Button } from "@/common/Button";
 
@@ -50,6 +50,7 @@ export const Navbar = ({ showAccount }: NavbarProps) => {
         <Button
           title="Add a New Product"
           onPress={navigateToAccountDetail}
+          style ={{marginHorizontal:12, width:"auto"}}
         />
       )}
     </View>
@@ -62,6 +63,8 @@ const styles = StyleSheet.create({
     gap: 6,
     marginHorizontal: 8,
     marginTop: 28,
+    justifyContent: "center",
+   
   },
   searchContainer: {
     paddingHorizontal: 14,

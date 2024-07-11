@@ -1,15 +1,25 @@
-import React, { useEffect } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Text,
+  TouchableOpacity,
+} from "react-native";
+import { Controller, useForm } from "react-hook-form";
 import Constants from "expo-constants";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/common/Button";
 import { supabase } from "@/lib/supabase";
-import { TextInputComponent } from "./TextInputComponent";
+import * as ImagePicker from "expo-image-picker";
+
+import { TextInputComponent } from "../../../common/TextInputComponent";
 import { CheckboxComponent } from "./CheckboxComponent";
 import { SwitchComponent } from "./SwitchComponent";
 import { DropdownComponent } from "./DropdownComponent";
+import { router, useRouter } from "expo-router";
 
 export type ProductType = {
   name: string;
@@ -21,6 +31,7 @@ export type ProductType = {
   merk: Array<{ label: string; value: string }>;
   sizes: Array<{ label: string; value: string }>;
   inStock: boolean;
+  image: string;
 };
 
 const productType = [
@@ -45,16 +56,46 @@ const checkBoxOptions = [
 
 export const AddNewProductPage = () => {
   useEffect(() => {
-    const fetchProducs = async () => {
-      const { data, error } = await supabase.from("products").select();
+    const fetchProducts = async () => {
+      const { data, error } = await supabase.from("Products").select();
       if (error) {
         console.error("Error fetching products", error);
       } else {
         console.log("Supabase Data ", data);
       }
     };
-    fetchProducs();
+    fetchProducts();
+
+    const requestPermissions = async () => {
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
+      }
+    };
+    requestPermissions();
   }, []);
+
+  const [image, setImage] = useState<string>("");
+
+  const router = useRouter();
+  const pickImage = async (onChange: (uri: string) => void) => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: false,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      const uri = result.assets[0].uri;
+      setImage(uri);
+      onChange(uri);
+    }
+  };
+
+  const MAX_UPLOAD_SIZE = 1024 * 1024 * 3; // 3MB
+  const ACCEPTED_FILE_TYPES = ["image/png"];
 
   const schema = z.object({
     name: z
@@ -88,6 +129,7 @@ export const AddNewProductPage = () => {
     merk: z.string().min(1, "Please select a Product Merk"),
     sizes: z.array(z.string()),
     inStock: z.boolean(),
+    image: z.string().url("Please select a Product Image"),
   });
 
   const {
@@ -105,21 +147,43 @@ export const AddNewProductPage = () => {
       merk: [],
       sizes: [],
       inStock: false,
+      image: "",
     },
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = async (data: ProductType) => {
-    console.log("Form Data:", data);
-    const { status, error } = await supabase.from("products").insert(data);
+  const onSubmit = async (datas: ProductType) => {
+    const { data, } = await supabase.storage
+      .from("assets")
+      .upload("public/avatar1.png", image);
+     if (data) {
+      console.log("Image uploaded successfully", data);
+     datas.image =   data.fullPath 
+    }
+    // Insert Query
+
+    const { status, error } = await supabase.from("Products").insert(datas);
     if (error) {
       console.error("Error adding product ", error);
     } else {
       console.log("Product added successfully", status);
+      router.navigate("/dashboard");
     }
-  };
 
-  console.log("errros", errors.name);
+    // Update Query
+    // const { error,status } = await supabase
+    // .from('products')
+    // .update({ name: 'Grocery' })
+    // .eq('id', 3)
+    // if (error) {
+    //   console.error("Error updating product ", error);
+    // } else {
+    //   console.log("Product updated successfully", status);
+    // }
+
+    // Delete Query
+    // const response = await supabase.from("Products").delete().eq("id", 3);
+  };
 
   return (
     <ScrollView
@@ -175,6 +239,29 @@ export const AddNewProductPage = () => {
         control={control}
         errors={errors.description}
       />
+      <View>
+        <Text style={styles.label}>Product Image</Text>
+
+        <Controller
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <>
+              <Button
+                title="Pick Product Image"
+                onPress={() => pickImage(onChange)}
+                style={{ width: 150, height: 40, borderRadius: 4, padding: 2 }}
+              />
+              {value && <Image source={{ uri: value }} style={styles.image} />}
+            </>
+          )}
+          name="image"
+          rules={{ required: true }}
+        />
+
+        {errors.image && (
+          <Text style={styles.errorText}>{errors.image.message}</Text>
+        )}
+      </View>
 
       <CheckboxComponent
         name="sizes"
@@ -191,7 +278,11 @@ export const AddNewProductPage = () => {
       />
 
       <View style={{ marginVertical: 24 }}>
-        <Button title="Add" onPress={handleSubmit(onSubmit)} />
+        <Button
+          title="Add"
+          onPress={handleSubmit(onSubmit)}
+          style={{ marginBottom: 12 }}
+        />
       </View>
     </ScrollView>
   );
@@ -233,4 +324,12 @@ const styles = StyleSheet.create({
   checkbox: {
     marginVertical: 6,
   },
+  image: {
+    width: 200,
+    height: 200,
+    marginTop: 12,
+    borderRadius: 16,
+    overflow: "hidden",
+  },
+  errorText: { color: "red", padding: 2, marginTop: 4 },
 });

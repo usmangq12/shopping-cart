@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { AddToCart } from "../../common/SelectedProducts";
+import { AddToCart } from "../../../common/SelectedProducts";
 import useProductsStore from "@/store/ProductsStore";
 import { Product, Products } from "@/constants/Product";
 

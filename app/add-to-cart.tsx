@@ -1,9 +1,10 @@
+import { AddToCartProducts } from "@/components/screens/AddToCartScreen/AddToCartProducts";
 import React from "react";
 
-import { AddToCartProducts } from "@/components/AddToCartScreen/AddToCartProducts";
+
 
 const AddToCartScreen = () => {
-  return <AddToCartProducts />;
+  return <AddToCartProducts/>;
 };
 
 export default AddToCartScreen;

@@ -12,15 +12,9 @@ import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { Screens } from "@/constants/routes";
 
-import { BottomSheetProvider } from "@gorhom/bottom-sheet/lib/typescript/contexts";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-// export enum Screens {
-//   Index = "index",
-// }
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -41,26 +35,55 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-    <GestureHandlerRootView>
-    <BottomSheetModalProvider>
-      <Stack>
-        {/** Create enums for screens */}
-        <Stack.Screen name={Screens.Index} options={{ headerShown: false }} />
-        <Stack.Screen name= {Screens.ProductDetail} options={{ headerShown: false }} />
-        <Stack.Screen name={Screens.OrderConfirm} options={{ headerShown: false }} />
-        <Stack.Screen name={Screens.Checkout} options={{ headerShown: false }} />
-        <Stack.Screen name={Screens.AddToCart } options={{ headerShown: false }} />
-        <Stack.Screen name={Screens.AddtoWishList } options={{ headerShown: false }} />
-        <Stack.Screen name={Screens.Home } options={{ headerShown: false }} />
-        <Stack.Screen name={Screens.Dashboard } options={{ headerShown: false }} />
-        <Stack.Screen name={Screens.AddNewProduct } options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      </BottomSheetModalProvider>
-    </GestureHandlerRootView>
-     
-     
+      <GestureHandlerRootView>
+        <BottomSheetModalProvider>
+          <Stack>
+            {/** Create enums for screens */}
+            <Stack.Screen
+              name={Screens.Index}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name={Screens.ProductDetail}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name={Screens.OrderConfirm}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name={Screens.Checkout}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name={Screens.AddToCart}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name={Screens.AddtoWishList}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name={Screens.Home}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name={Screens.Dashboard}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name={Screens.AddNewProduct}
+              options={{ headerShown: false }}
+            />
+             <Stack.Screen
+              name={Screens.Signin}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
     </ThemeProvider>
   );
 }

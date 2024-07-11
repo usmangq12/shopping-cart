@@ -1,6 +1,7 @@
-import Navbar from "@/components/HomeScreen/Navbar";
-import { ProductGrid } from "@/components/HomeScreen/ProductGrid";
-import { SwiperCard } from "@/components/HomeScreen/swiperCards/SwiperCard";
+import Navbar from "@/components/screens/HomeScreen/Navbar";
+import { ProductGrid } from "@/components/screens/HomeScreen/ProductGrid";
+import { SwiperCard } from "@/components/screens/HomeScreen/swiperCards/SwiperCard";
+
 import React from "react";
 import {
   View,
@@ -22,7 +23,7 @@ const home = () => {
         </TouchableOpacity>
       </View>
       <ScrollView>
-        <SwiperCard />
+        <SwiperCard/>
 
         <View style={styles.productCardView}>
           {/** Should be called `ProductGrid` */}

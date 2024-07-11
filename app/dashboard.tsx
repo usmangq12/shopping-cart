@@ -1,4 +1,4 @@
-import { DashboardPage } from '@/components/SellerDashboardScreen/DashboardPage'
+import { DashboardPage } from '@/components/screens/SellerDashboardScreen/DashboardPage'
 import React from 'react'
 import { View, Text } from 'react-native'
 

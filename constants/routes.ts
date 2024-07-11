@@ -9,4 +9,5 @@ export enum Screens {
   Home = "home",
   Dashboard = "dashboard",
   AddNewProduct = "add-new-product",
+  Signin = "signin"
 }

@@ -1,4 +1,5 @@
-import { AccountDetail } from "@/components/AccountDetailScreen/AccountDetail";
+
+import { AccountDetail } from "@/components/screens/AccountDetailScreen/AccountDetail";
 import React from "react";
 
 const AccountDetailScreen = () => {

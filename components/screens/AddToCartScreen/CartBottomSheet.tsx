@@ -52,7 +52,7 @@ export const CartBottomSheet = forwardRef<BottomSheetModal>((props, ref) => {
           <Text style={styles.text}>${subTotal + 100}</Text>
         </View>
       </View>
-      <Button title={"Proceed To Checkout"} onPress={goToCheckoutPage} />
+      <Button title={"Proceed To Checkout"} onPress={goToCheckoutPage}   style ={{marginHorizontal:12, width:"auto",  marginBottom: 10, }} />
     </BottomSheetModal>
   );
 });

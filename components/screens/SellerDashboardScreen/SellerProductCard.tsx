@@ -2,8 +2,21 @@ import { Product } from "@/constants/Product";
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
-type SellerProductCardProps = {
-  products: Product[];
+export type SellerProductCardProps = {
+  products: {
+    id: number;
+    name: string;
+    price: number;
+    discount: number;
+    discountPrice: number;
+    image: string;
+    merk: string;
+    type: string;
+    sizes: [];
+    description: string;
+    created_at: any;
+    inStock: boolean;
+  }[];
 };
 const SellerProductCard = ({ products }: SellerProductCardProps) => {
   return (
@@ -12,7 +25,7 @@ const SellerProductCard = ({ products }: SellerProductCardProps) => {
         <TouchableOpacity key={index} style={styles.cardContainer}>
           <View style={styles.imageContainer}>
             <Image
-              source={item.img}
+              source={{ uri: item.image }}
               resizeMode="cover"
               style={styles.productImage}
             />
@@ -20,7 +33,7 @@ const SellerProductCard = ({ products }: SellerProductCardProps) => {
           <View style={styles.detailsContainer}>
             <View style={styles.ratingContainer}></View>
             <View style={styles.shopInfoContainer}></View>
-            <Text style={styles.productTitle}>{item.title}</Text>
+            <Text style={styles.productTitle}>{item.name}</Text>
             <Text style={styles.productPrice}>{item.price}</Text>
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}

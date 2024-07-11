@@ -1,16 +1,13 @@
 import React from "react";
 import { Controller, FieldError, Merge } from "react-hook-form";
-import { View, Text, TextInput, StyleSheet } from "react-native";
-import { ProductType } from "./AddNewProductPage";
+import { Text, TextInput, StyleSheet } from "react-native";
 
 type TextInputProps = {
   control: any;
   name: string;
   title: string;
-  errors: Merge<FieldError, (FieldError | undefined)[]> | undefined
+  errors: Merge<FieldError, (FieldError | undefined)[]> | undefined;
 };
-
-
 
 export const TextInputComponent = ({
   control,
@@ -35,7 +32,9 @@ export const TextInputComponent = ({
         rules={{ required: true }}
       />
 
-      {errors && errors !== undefined && <Text style={styles.errorText}>{errors.message}</Text>}
+      {errors && errors !== undefined && (
+        <Text style={styles.errorText}>{errors.message}</Text>
+      )}
     </>
   );
 };
@@ -59,5 +58,5 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     elevation: 2,
   },
-  errorText : {color:"red",padding:2}
+  errorText: { color: "red", padding: 2, marginTop: 4 },
 });

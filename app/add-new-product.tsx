@@ -1,4 +1,5 @@
-import { AddNewProductPage } from "@/components/AddNewProductScreen/AddNewProductPage";
+
+import { AddNewProductPage } from "@/components/screens/AddNewProductScreen/AddNewProductPage";
 import React from "react";
 
 const AddNewProduct = () => {

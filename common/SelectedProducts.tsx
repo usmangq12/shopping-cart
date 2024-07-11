@@ -12,7 +12,7 @@ import { TabBarIcon } from "../components/navigation/TabBarIcon";
 import { router } from "expo-router";
 import { Product } from "@/constants/Product";
 import { AntDesign } from "@expo/vector-icons";
-import { CartBottomSheet } from "../components/AddToCartScreen/CartBottomSheet";
+import { CartBottomSheet } from "../components/screens/AddToCartScreen/CartBottomSheet";
 import { useFocusEffect } from "@react-navigation/native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import useProductsStore from "@/store/ProductsStore";

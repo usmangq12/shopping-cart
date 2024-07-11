@@ -1,7 +1,7 @@
 import { Product } from "@/constants/Product";
 import useProductsStore from "@/store/ProductsStore";
 import React, { useEffect, useState } from "react";
-import { AddToCart } from "../../common/SelectedProducts";
+import { AddToCart } from "../../../common/SelectedProducts";
 
 export const WishListPage = () => {
   const products = useProductsStore((state) => state.products);
