@@ -15,6 +15,11 @@ import { TextInputComponent } from "../../../common/TextInputComponent";
 import { Button } from "@/common/Button";
 import { Link, useRouter } from "expo-router";
 import { Screens } from "@/constants/routes";
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-google-signin/google-signin'
 
 
 
@@ -22,6 +27,10 @@ import { Screens } from "@/constants/routes";
 
 
 export const SignupPage = () => {
+  // GoogleSignin.configure({
+  //   scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+  // //   webClientId: 'YOUR CLIENT ID FROM GOOGLE CONSOLE',
+  // })
   const schema = z.object({
     name: z
       .string()
@@ -73,10 +82,12 @@ export const SignupPage = () => {
     email: string;
     password: string;
   }) => {
+    console.log("Name", detail.name, detail.email, detail.password);
     const { data, error } = await supabase.auth.signUp({
       email: detail.email,
       password: detail.password,
     });
+    console.log("Data**",data);
     if (error) {
       console.error("Error signing up:", error);
       alert("Error signing up. Please try again.");
@@ -140,6 +151,42 @@ export const SignupPage = () => {
           <View style={{ marginTop: 32 }}>
             <Button title="Create Account " onPress={handleSubmit(onSubmit)} />
           </View>
+          {/* <GoogleSigninButton
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Dark}
+        onPress={async () => {
+        
+          try {
+            await GoogleSignin.hasPlayServices();
+        
+            const userInfo = await GoogleSignin.signIn();
+            console.log("Google Sign");
+            console.log("Google signed",userInfo);
+
+            if (userInfo.idToken) {
+              const { data, error } = await supabase.auth.signInWithIdToken({
+                provider: 'google',
+                token: userInfo.idToken,
+              })
+              router.navigate(Screens.Signin)
+              console.log(error, data)
+            } else {
+              throw new Error('no ID token present!')
+            }
+          } catch (error: any) {
+            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+              // user cancelled the login flow
+            } else if (error.code === statusCodes.IN_PROGRESS) {
+              // operation (e.g. sign in) is in progress already
+            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+              // play services not available or outdated
+            } else {
+              // some other error happened
+            }
+          }
+
+        }}
+      /> */}
           <TouchableOpacity
             style={{
               flexDirection: "row",
@@ -214,3 +261,7 @@ const styles = StyleSheet.create({
     marginVertical: 6,
   },
 });
+
+
+
+

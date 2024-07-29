@@ -43,7 +43,7 @@ export const SigninPage = () => {
       console.log("Sign Up Successfully ", data);
     }
 
-    router.navigate(Screens.Dashboard);
+    router.navigate(Screens.Home);
   };
 
   return (

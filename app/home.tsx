@@ -1,8 +1,4 @@
-import Navbar from "@/components/screens/HomeScreen/Navbar";
-import { ProductGrid } from "@/components/screens/HomeScreen/ProductGrid";
-import { SwiperCard } from "@/components/screens/HomeScreen/swiperCards/SwiperCard";
-
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -11,11 +7,26 @@ import {
   ScrollView,
   StyleSheet,
 } from "react-native";
+import Navbar from "@/components/screens/HomeScreen/Navbar";
+import { ProductGrid } from "@/components/screens/HomeScreen/ProductGrid";
+import { SwiperCard } from "@/components/screens/HomeScreen/swiperCards/SwiperCard";
+import { Products } from "@/constants/Product";
 
-const home = () => {
+const Home = () => {
+  const [products, setProducts] = useState(Products);
+  const [filteredProducts, setFilteredProducts] = useState(products);
+
+  const handleSearch = (text: string) => {
+    console.log("Text: " + text);
+    const filtered = products.filter((item) =>
+      item.title.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  };
+
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <Navbar  showAccount = {true}/>
+      <Navbar showAccount={true} handleSearch={handleSearch} />
       <View style={styles.container}>
         <Text style={styles.popularItemsText}>Popular Items</Text>
         <TouchableOpacity>
@@ -23,11 +34,9 @@ const home = () => {
         </TouchableOpacity>
       </View>
       <ScrollView>
-        <SwiperCard/>
-
+        <SwiperCard />
         <View style={styles.productCardView}>
-          {/** Should be called `ProductGrid` */}
-          <ProductGrid />
+          <ProductGrid products={filteredProducts} />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -51,4 +60,4 @@ const styles = StyleSheet.create({
   productCardView: { flex: 1 },
 });
 
-export default home;
+export default Home;

@@ -1,50 +1,58 @@
-# Welcome to your Expo app 👋
+## Shopping Cart
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Shopping Cart is an app where users can authenticate, search for products, add products to their cart, and purchase them. Sellers can manage their products through a dedicated dashboard.
 
-## Get started
+## Features
 
-1. Install dependencies
+Authentication: Both buyers and sellers can sign up and log in using email and password.
+Seller Dashboard: Sellers can add new products, view their product list, and search through their products.
+Product Search: Buyers can search for products.
+Add to Cart: Buyers can add products to their cart.
+Purchase Products: Buyers can purchase products by providing their address, email, and phone number.
 
-   ```bash
-   npm install
-   ```
+## Getting Started
 
-2. Start the app
+## Prerequisites
 
-   ```bash
-    npx expo start
-   ```
+Node.js installed
+Supabase integration for authentication
 
-In the output, you'll find options to open the app in a
+## Installation
+Clone the repository:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+bash
+Copy code
+git clone https://github.com/usmangq12/shopping-cart.git
+cd shopping_cart
+Install dependencies:
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+bash
+Copy code
+yarn install
+yarn run start
+In the output, you'll find options to open the app in a:
 
-## Get a fresh project
+## development build
+Android emulator
+iOS simulator
+Expo Go, a limited sandbox for trying out app development with Expo
+You can start developing by editing the files inside the app directory. This project uses file-based routing.
 
-When you're ready, run:
+## Set Environment Variables
 
-```bash
+Create a .env file in the root directory of your project and add your Supabase credentials:
+
+plaintext
+Copy code
+EXPO_PUBLIC_SUPABASE_URL=Your_Supabase_URL
+EXPO_PUBLIC_SUPABASE_ANON_KEY=Your_Supabase_Anon_Key
+Reset Project
+
+If you need to start with a fresh project setup, run:
+
+bash
+Copy code
+
 npm run reset-project
-```
+This command will move the starter code to the app-example directory and create a blank app directory where you can start developing.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.

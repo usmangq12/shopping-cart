@@ -15,7 +15,7 @@ export const ThirdSwiperCard = () => {
   const router = useRouter();
 
   const NavigateToProduct = () => {
-    router.navigate("productDetail");
+    router.navigate(`/productDetail/${2}`);
   };
 
   return (

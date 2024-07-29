@@ -16,7 +16,8 @@ export const FirstSwiperCard = () => {
   const router = useRouter();
 
   const NavigateToProduct = () => {
-    router.navigate("productDetail");
+    router.navigate(`/productDetail/${3}`);
+  
   };
   {
     return (

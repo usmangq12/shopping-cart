@@ -10,6 +10,7 @@ type ProductCardTypes = {
   products: Product[];
 };
 export const ProductCard = ({ products }: ProductCardTypes) => {
+
   const addToWishlistItems = useProductsStore((state) => state.addToWishList);
   const removeFromWishlistItems = useProductsStore(
     (state) => state.removeFromWishList
@@ -30,7 +31,7 @@ export const ProductCard = ({ products }: ProductCardTypes) => {
 
   return (
     <View style={styles.row}>
-      {products.map((item, index) => (
+      {products?.map((item, index) => (
         <TouchableOpacity
           key={index}
           style={styles.cardContainer}

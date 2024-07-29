@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextInput, TouchableOpacity, View, StyleSheet } from "react-native";
 
 import { EvilIcons } from "@expo/vector-icons";
@@ -7,26 +7,36 @@ import { useRouter } from "expo-router";
 import { TabBarIcon } from "../../navigation/TabBarIcon";
 import { Screens } from "@/constants/routes";
 import { Button } from "@/common/Button";
+import { Product } from "@/constants/Product";
+import { set } from "react-hook-form";
 
 type NavbarProps = {
   showAccount: boolean;
+  handleSearch: (value: string) => any;
 };
-export const Navbar = ({ showAccount }: NavbarProps) => {
+export const Navbar = ({ showAccount, handleSearch }: NavbarProps) => {
+  const [value, setValue] = useState("");
   const router = useRouter();
-
+  console.log("Search Values", value);
   const navigateToAccountDetail = () => {
-      if(showAccount) {
-        router.navigate(Screens.AddtoWishList);
-      }
-      else {
-        router.navigate(Screens.AddNewProduct);
-      }
+    if (showAccount) {
+      router.navigate(Screens.AddtoWishList);
+    } else {
+      router.navigate(Screens.AddNewProduct);
+    }
+  };
+
+  const handleChange = (text: string) => {
+    setValue(text);
+    handleSearch(text);
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
         <TextInput
+          value={value}
+          onChangeText={handleChange}
           selectionColor="black"
           placeholder="Search"
           placeholderTextColor="#919191"
@@ -50,7 +60,7 @@ export const Navbar = ({ showAccount }: NavbarProps) => {
         <Button
           title="Add a New Product"
           onPress={navigateToAccountDetail}
-          style ={{marginHorizontal:12, width:"auto"}}
+          style={{ marginHorizontal: 12, width: "auto" }}
         />
       )}
     </View>
@@ -64,7 +74,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     marginTop: 28,
     justifyContent: "center",
-   
   },
   searchContainer: {
     paddingHorizontal: 14,
